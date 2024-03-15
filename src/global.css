@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*.container {*/
+/*  max-width: 800px;*/
+/*  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;*/
+/*  line-height: 1.5;*/
+/*  font-weight: 400;*/
+/*  padding:10px;*/
+/*  margin: 0 auto;*/
+/*}*/
+
+.answer-box {
+  position: relative;
+  max-width: 500px;
+}
+
+/*.answer-box label {*/
+/*  font-weight: bold;*/
+/*  flex-grow: 100;*/
+/*}*/
+.answer-box textarea {
+  width: 100%;
+  height: 150px;
+}
+.answer-box button {
+  position: absolute;
+  right: 3px;
+  bottom: 10px;
+}
+
+
