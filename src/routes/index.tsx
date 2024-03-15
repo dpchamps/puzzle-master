@@ -206,7 +206,7 @@ export default component$(() => {
       (store.responses.length === 3 && !store.thinking) ? (
         <GameCompleteComponent
           responses={store.responses.map(({ answer }) => answer)}
-          puzzleNumber={store.questionData?.day!}
+          puzzleNumber={store.questionData?.day || ""}
         />
       ) : (
         <AnswerComponent
