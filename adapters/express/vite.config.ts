@@ -10,9 +10,14 @@ export default extendConfig(baseConfig, () => {
         input: ["src/entry.express.tsx", "@qwik-city-plan"],
       },
     },
-    plugins: [nodeServerAdapter({ name: "express", ssg:{
-      include: [],
-        origin: "https://upload.imgplex.com/puzzle-master/"
-      } })],
+    plugins: [
+      nodeServerAdapter({
+        name: "express",
+        ssg: {
+          include: [],
+          origin: "https://upload.imgplex.com/puzzle-master/",
+        },
+      }),
+    ],
   };
 });

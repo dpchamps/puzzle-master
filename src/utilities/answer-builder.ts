@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import assert from "assert";
+import {systemPrompt} from "~/utilities/system-prompt";
 
 const epochStart = "3/14/2024";
 
@@ -32,14 +33,13 @@ export const fetchQuestionData = async () => {
   const RESOLVED_QUESTIONS_PATH = path.resolve(QUESTIONS_PATH);
   console.log(`Fetching question data from ${RESOLVED_QUESTIONS_PATH}`);
   const data = JSON.parse(await fs.readFile(RESOLVED_QUESTIONS_PATH, "utf-8"));
-  assert(typeof data.systemPrompt === "string", "");
-  const systemPrompt = data.systemPrompt;
+  const systemPromptDynamic = data.systemPrompt;
   const { day, puzzleQuestion, puzzleAnswer, title } = getTodaysPuzzle(data);
 
   return {
     day,
     title,
-    systemPrompt,
+    systemPrompt: typeof systemPromptDynamic !== "undefined" ? systemPromptDynamic : systemPrompt.trim(),
     puzzleQuestion,
     puzzleAnswer,
   };

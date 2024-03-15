@@ -26,6 +26,6 @@ export default function (opts: RenderToStreamOptions) {
       lang: "en-us",
       ...opts.containerAttributes,
     },
-    base: "/puzzle-master/build"
+    base: "/puzzle-master/build",
   });
 }
