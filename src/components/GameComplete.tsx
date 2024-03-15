@@ -11,7 +11,6 @@ export const containsWinCondition = (responses: string[]) =>
 export const GameCompleteComponent = component$(
   (props: { puzzleNumber: string; responses: string[] }) => {
       const copied = useSignal(false);
-      const buttonColor = copied.value ? `blue` : `green`;
     const playerWon = containsWinCondition(props.responses);
     const emojiOutput = props.responses
       .map((response) => {
@@ -38,7 +37,7 @@ export const GameCompleteComponent = component$(
           <p class={"my-3"}>{emojiOutput}</p>
           <button
             class={
-              `bg-${buttonColor}-500 hover:bg-${buttonColor}-700 text-white font-bold py-2 px-4 rounded`
+              `bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`
             }
             onClick$={() => {
               copyToClipboard(
