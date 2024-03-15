@@ -13,7 +13,5 @@ export const fetchResponse = server$(async function* (
     questionData.puzzleAnswer,
     answer,
   );
-  const x = await createResponseStream(questionData.systemPrompt, prompt);
-
-  yield* x;
+  yield*  await createResponseStream(questionData.systemPrompt, prompt);
 });

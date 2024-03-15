@@ -14,7 +14,7 @@ export const AnswerComponent = component$(
         </div>
         <div class={"input-fields"}>
           <textarea
-            class={"resize-none rounded-m py-2 p-1 bg-slate-50"}
+            class={"resize-none rounded-m py-2 p-1 dark:bg-slate-50 dark:text-slate-800"}
             id={"answer"}
             value={store.answer}
             onInput$={(_, el) => store.onValueUpdate(el.value)}

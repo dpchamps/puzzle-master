@@ -1,15 +1,17 @@
-import { component$ } from "@builder.io/qwik";
+import {component$, useSignal} from "@builder.io/qwik";
 import copyToClipboard from "copy-to-clipboard";
 
 const winCondition = "That's right. Great job solving the puzzle".toLowerCase();
 const clarificationCondition =
-  "Not quite. There's a better solution.".toLowerCase();
+  "You have not explained with enough clarity. Please expand upon your answer.".toLowerCase();
 
 export const containsWinCondition = (responses: string[]) =>
   responses.join(" ").toLowerCase().includes(winCondition);
 
 export const GameCompleteComponent = component$(
   (props: { puzzleNumber: string; responses: string[] }) => {
+      const copied = useSignal(false);
+      const buttonColor = copied.value ? `blue` : `green`;
     const playerWon = containsWinCondition(props.responses);
     const emojiOutput = props.responses
       .map((response) => {
@@ -36,15 +38,16 @@ export const GameCompleteComponent = component$(
           <p class={"my-3"}>{emojiOutput}</p>
           <button
             class={
-              "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              `bg-${buttonColor}-500 hover:bg-${buttonColor}-700 text-white font-bold py-2 px-4 rounded`
             }
             onClick$={() => {
               copyToClipboard(
-                `Riddles Puzzle ${props.puzzleNumber}\n${emojiOutput}`,
+                `Riddles Puzzle ${props.puzzleNumber}\n${emojiOutput}`
               );
+              copied.value = true
             }}
           >
-            Copy Result To Clipboard
+              { copied.value ? `Copied!` : `Copy Result To Clipboard` }
           </button>
         </div>
       </>
