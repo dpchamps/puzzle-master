@@ -2,8 +2,11 @@ import fs from "fs/promises";
 import path from "path";
 import assert from "assert";
 import { systemPrompt } from "~/utilities/system-prompt";
+import {createDataSynchronizer} from "~/utilities/data-fetcher";
 
 const epochStart = "3/14/2024";
+
+const getData = createDataSynchronizer(60 * 1000 * 5);
 
 function daysBetween() {
   return `${Math.round(Math.abs(Date.now() - +new Date(epochStart)) / 8.64e7)}`.padStart(
@@ -29,10 +32,7 @@ const getTodaysPuzzle = (data: Record<string, unknown>) => {
 };
 
 export const fetchQuestionData = async () => {
-  const QUESTIONS_PATH = process.env.QUESTIONS_PATH || "";
-  const RESOLVED_QUESTIONS_PATH = path.resolve(QUESTIONS_PATH);
-  console.log(`Fetching question data from ${RESOLVED_QUESTIONS_PATH}`);
-  const data = JSON.parse(await fs.readFile(RESOLVED_QUESTIONS_PATH, "utf-8"));
+  const data = await getData();
   const systemPromptDynamic = data.systemPrompt;
   const { day, puzzleQuestion, puzzleAnswer, title } = getTodaysPuzzle(data);
 

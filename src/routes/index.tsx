@@ -99,16 +99,16 @@ export default component$(() => {
           The wise wizard asks you a logic puzzle. You have three chances to get
           it right. Make sure to explain your answer, or he might not accept it.
         </p>
-        <p class={"my-3"}>New Puzzle every day.</p>
         <p>
           <em>
             The Wise Wizard is still in beta. If you encounter bugs, please file
-            at{" "}
-            <a href={"https://github.com/dpchamps/puzzle-master/issues"}>
-              https://github.com/dpchamps/puzzle-master/issues
-            </a>
+            at
           </em>
         </p>
+        <a href={"https://github.com/dpchamps/wisest-wizard/issues"}>
+            https://github.com/dpchamps/wisest-wizard/issues
+          </a>
+        <p class={"my-3"}>New Puzzle every day.</p>
         <br />
         <hr />
       </details>
