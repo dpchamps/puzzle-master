@@ -39,7 +39,7 @@ export const GameCompleteComponent = component$(
             class={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded`}
             onClick$={() => {
               copyToClipboard(
-                `Riddles Puzzle ${props.puzzleNumber}\n${emojiOutput}`,
+                `Wisest Wizard Puzzle ${props.puzzleNumber}\n${emojiOutput}\nhttps://wizest-wizard.com`,
               );
               copied.value = true;
             }}
