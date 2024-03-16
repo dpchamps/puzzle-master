@@ -1,4 +1,3 @@
-import {performance} from "perf_hooks";
 import fs from "fs/promises";
 import path from "path";
 import assert from "assert";
@@ -12,7 +11,7 @@ export const createDataSynchronizer = (ms: number) => {
     const questionsPath = process.env.QUESTIONS_PATH || "";
     const resolvedQuestionsPath = path.resolve(questionsPath);
 
-    let then = performance.now();
+    let then = Date.now();
     let data: null|Record<string, unknown> = null;
 
     process.on("SIGCONT", async () => {
@@ -22,7 +21,7 @@ export const createDataSynchronizer = (ms: number) => {
 
 
     return async () => {
-        const now = performance.now();
+        const now = Date.now();
         if(data === null || (now - then) > ms) {
             data = await readDataFromDisk(resolvedQuestionsPath);
             then = now;

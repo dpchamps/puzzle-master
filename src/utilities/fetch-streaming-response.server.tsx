@@ -1,5 +1,5 @@
 import { server$ } from "@builder.io/qwik-city";
-import { fetchQuestionData, getPrompt } from "~/utilities/answer-builder";
+import { type fetchQuestionData, getPrompt } from "~/utilities/answer-builder";
 import { createResponseStream } from "~/anthropic";
 
 export type QuestionData = Awaited<ReturnType<typeof fetchQuestionData>>;
