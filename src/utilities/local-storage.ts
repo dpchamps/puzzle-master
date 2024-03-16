@@ -16,3 +16,5 @@ export const writeResultsToLocalStorage = <
 ) => {
   window.localStorage.setItem(puzzle, JSON.stringify(results, null, 1));
 };
+
+export const isFirstTimer = () => window.localStorage.length === 0;

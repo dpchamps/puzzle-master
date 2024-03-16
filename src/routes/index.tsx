@@ -13,7 +13,7 @@ import {
   GameCompleteComponent,
 } from "~/components/GameComplete";
 import {
-  getResultsFromLocalStorage,
+  getResultsFromLocalStorage, isFirstTimer,
   writeResultsToLocalStorage,
 } from "~/utilities/local-storage";
 import {
@@ -26,6 +26,7 @@ export type DataStore = {
   answer: string;
   responses: { question: string; answer: string }[];
   thinking: boolean;
+  firstTimer: boolean
 };
 
 export default component$(() => {
@@ -34,6 +35,7 @@ export default component$(() => {
     answer: "",
     responses: [],
     thinking: false,
+    firstTimer: false
   });
 
   useTask$(async () => {
@@ -53,6 +55,9 @@ export default component$(() => {
     try {
       const stream = await fetchResponse(store.questionData, answer);
       for await (const responseFragment of stream) {
+        if(responseFragment instanceof Error){
+          throw responseFragment
+        }
         if (responseFragment.type === "content_block_delta") {
           if (!ack) {
             store.responses[store.responses.length - 1].answer =
@@ -75,8 +80,11 @@ export default component$(() => {
 
   useVisibleTask$(() => {
     const responses = getResultsFromLocalStorage(store.questionData!.day);
+
     if (responses) {
       store.responses = responses;
+    } else if (isFirstTimer()){
+      store.firstTimer = true;
     }
   });
 
@@ -85,13 +93,20 @@ export default component$(() => {
       class={"container p-3 max-w-xl mx-auto leading-6 text-base "}
     >
       <h1 class={"text-3xl my-6"}>🧙🏾 Welcome, Traveller</h1>
-      <details class={"mb-4"}>
+      <details class={"mb-4"} open={store.firstTimer}>
         <summary>Rules</summary>
         <p class={"my-3"}>
           The wise wizard asks you a logic puzzle. You have three chances to get
           it right. Make sure to explain your answer, or he might not accept it.
+        </p>
+        <p class={'my-3'}>
           New Puzzle every day.
         </p>
+        <p>
+          <em>The Wise Wizard is still in beta. If you encounter bugs,
+            please file at <a href={'https://github.com/dpchamps/puzzle-master/issues'}>https://github.com/dpchamps/puzzle-master/issues</a></em>
+        </p>
+        <br/>
         <hr />
       </details>
       <h2 class={"text-xl my-3"}>
