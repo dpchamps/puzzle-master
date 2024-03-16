@@ -40,7 +40,7 @@ export const fetchQuestionData = async () => {
     day,
     title,
     systemPrompt:
-      typeof systemPromptDynamic !== "undefined"
+      typeof systemPromptDynamic !== "undefined" && typeof systemPromptDynamic === "string"
         ? systemPromptDynamic
         : systemPrompt.trim(),
     puzzleQuestion,
