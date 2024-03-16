@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import assert from "assert";
-import {systemPrompt} from "~/utilities/system-prompt";
+import { systemPrompt } from "~/utilities/system-prompt";
 
 const epochStart = "3/14/2024";
 
@@ -39,7 +39,10 @@ export const fetchQuestionData = async () => {
   return {
     day,
     title,
-    systemPrompt: typeof systemPromptDynamic !== "undefined" ? systemPromptDynamic : systemPrompt.trim(),
+    systemPrompt:
+      typeof systemPromptDynamic !== "undefined"
+        ? systemPromptDynamic
+        : systemPrompt.trim(),
     puzzleQuestion,
     puzzleAnswer,
   };

@@ -8,15 +8,14 @@ export const fetchResponse = server$(async function* (
   questionData: QuestionData,
   answer: string,
 ) {
-  try{
+  try {
     const prompt = getPrompt(
-        questionData.puzzleQuestion.join("\n"),
-        questionData.puzzleAnswer,
-        answer,
+      questionData.puzzleQuestion.join("\n"),
+      questionData.puzzleAnswer,
+      answer,
     );
-    yield*  await createResponseStream(questionData.systemPrompt, prompt);
-  } catch(_) {
+    yield* await createResponseStream(questionData.systemPrompt, prompt);
+  } catch (_) {
     yield new Error(`Backend Error Occurred`);
   }
-
 });
