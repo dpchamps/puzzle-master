@@ -6,8 +6,7 @@ const readDataFromDisk = async (path: string) => {
 
     return JSON.parse(await fs.readFile(path, "utf-8"));
 }
-export const createDataSynchronizer = (ms: number) => {
-    const questionsPath = process.env.QUESTIONS_PATH || "";
+export const createDataSynchronizer = (ms: number, questionsPath: string) => {
 
     let then = Date.now();
     let data: null|Record<string, unknown> = null;

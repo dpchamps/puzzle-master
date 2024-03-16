@@ -4,7 +4,7 @@ import {createDataSynchronizer} from "~/utilities/data-fetcher";
 
 const epochStart = "3/14/2024";
 
-const getData = createDataSynchronizer(60 * 1000 * 5);
+const getData = createDataSynchronizer(60 * 1000 * 5, process.env.QUESTIONS_PATH || "");
 
 function daysBetween() {
   return `${Math.round(Math.abs(Date.now() - +new Date(epochStart)) / 8.64e7)}`.padStart(
