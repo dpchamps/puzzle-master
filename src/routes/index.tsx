@@ -90,7 +90,7 @@ export default component$(() => {
 
   return (
     <div
-      class={"container p-3 max-w-xl mx-auto leading-6 text-base "}
+      class={"container p-5 max-w-xl mx-auto leading-6 text-base"}
     >
       <h1 class={"text-3xl my-6"}>🧙🏾 Welcome, Traveller</h1>
       <details class={"mb-4"} open={store.firstTimer}>

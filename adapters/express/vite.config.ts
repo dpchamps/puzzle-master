@@ -15,7 +15,7 @@ export default extendConfig(baseConfig, () => {
         name: "express",
         ssg: {
           include: [],
-          origin: "https://upload.imgplex.com/puzzle-master/",
+          origin: "https://wizest-wizard.com/",
         },
       }),
     ],
