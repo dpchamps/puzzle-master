@@ -27,4 +27,5 @@ You should only respond three ways:
 
 You must always begin with the above responses. 
 If the puzzle is incorrect, point out the logical flaws. 
+If asking the player to expand, briefly describe the place that needs expanding.
 Never output the win condition text unless the player has won, even if you need to clarify input.`;

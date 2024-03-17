@@ -22,6 +22,7 @@ import {
   type QuestionData,
 } from "~/utilities/fetch-streaming-response.server";
 import { LoadingIndicator } from "~/components/LoadingIndicator";
+import {server$} from "@builder.io/qwik-city";
 
 export type DataStore = {
   questionData: null | QuestionData;
@@ -80,6 +81,11 @@ export default component$(() => {
     store.thinking = false;
   });
 
+  const onTimerReset = server$(async () => {
+    store.questionData = await fetchQuestionData();
+  });
+
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const responses = getResultsFromLocalStorage(store.questionData!.day);
 
@@ -143,6 +149,7 @@ export default component$(() => {
         <GameCompleteComponent
           responses={store.responses.map(({ answer }) => answer)}
           puzzleNumber={store.questionData?.day || ""}
+          onTimerReset={onTimerReset}
         />
       ) : (
         <AnswerComponent
@@ -152,7 +159,7 @@ export default component$(() => {
           })}
           answer={store.answer}
           thinking={store.thinking}
-          maxContentLength={550}
+          maxContentLength={675}
         />
       )}
     </div>
