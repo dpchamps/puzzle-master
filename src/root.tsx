@@ -21,6 +21,7 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
+        <script async src="https://t.davecampion.com/rest/pm.js"></script>
         <RouterHead />
       </head>
       <body
