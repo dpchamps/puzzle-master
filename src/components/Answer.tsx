@@ -1,4 +1,10 @@
-import { component$, type QRL, useSignal } from "@builder.io/qwik";
+import {component$, type QRL, useSignal, useVisibleTask$} from "@builder.io/qwik";
+
+// 500/131
+// 131 = 3.8
+// 32  = 15.6
+
+// avg 9.7
 
 export const AnswerComponent = component$(
   (store: {
@@ -10,6 +16,26 @@ export const AnswerComponent = component$(
   }) => {
     const contentLength = useSignal(0);
     const lineHeight = useSignal(0);
+    const textAreaRef = useSignal<Element>();
+    const textAreaWidth = useSignal(0);
+
+      // eslint-disable-next-line qwik/no-use-visible-task
+      useVisibleTask$(({cleanup}) => {
+          const ta = textAreaRef.value;
+          const evtListener = () => {
+              if(ta){
+                  textAreaWidth.value = ta.getBoundingClientRect().width;
+              }
+          }
+          if(ta){
+              textAreaWidth.value = ta.getBoundingClientRect().width;
+              window.addEventListener("resize", evtListener);
+          }
+
+          cleanup(() => window.removeEventListener("resize", evtListener));
+
+      });
+
     return (
       <div class={"answer-box"}>
         <div>
@@ -22,15 +48,17 @@ export const AnswerComponent = component$(
         </div>
         <div class={"input-fields"}>
           <textarea
+              ref={textAreaRef}
             maxLength={store.maxContentLength}
             class={
               "resize-none rounded-m py-2 p-1 dark:bg-slate-50 dark:text-slate-800"
             }
-            style={`height: ${150+Math.max(lineHeight.value - 5, 0) * 23}px`}
+            style={`height: ${150+Math.max(lineHeight.value - 4, 0) * 23}px`}
             id={"answer"}
             value={store.answer}
             onInput$={(_, el) => {
-              lineHeight.value = el.value.split("\n").reduce((acc, el) => acc+1+Math.floor(el.length/63), 0);
+              lineHeight.value = el.value.split("\n").reduce((acc, el) => acc+1+Math.floor(el.length/(textAreaWidth.value/8.4)), 0);
+
               contentLength.value = el.value.length;
               return store.onValueUpdate(el.value);
             }}
