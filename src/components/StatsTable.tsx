@@ -1,4 +1,4 @@
-import {component$, useSignal, useStore, useTask$, useVisibleTask$} from "@builder.io/qwik";
+import {component$, useSignal, useStore, useVisibleTask$} from "@builder.io/qwik";
 import {getAllPuzzlesFromLocalStorage} from "~/utilities/local-storage";
 import {winCondition} from "~/components/GameComplete";
 
@@ -88,7 +88,7 @@ export const StatsTable = component$(() => {
                 <tbody>
                 {Object.entries(puzzleStats).map(([key, value], i) => {
                     return (
-                        <tr key={`${key}-i`}>
+                        <tr key={`${key}-${i}`}>
                             <td class={'font-bold text-left p-2 pl-0'}>{toDisplayKey(key as keyof Stats)}</td>
                             <td class={'text-left p-2 text-right'}>{value}</td>
                         </tr>

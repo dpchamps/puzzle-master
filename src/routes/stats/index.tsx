@@ -1,4 +1,4 @@
-import {component$, useTask$} from "@builder.io/qwik";
+import {component$} from "@builder.io/qwik";
 import {Link} from "~/components/Link";
 import {NextPuzzleTimer} from "~/components/NextPuzzleTimer";
 import {StatsTable} from "~/components/StatsTable";
