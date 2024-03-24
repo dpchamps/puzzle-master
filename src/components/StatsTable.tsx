@@ -56,8 +56,8 @@ const intoStatsObject = (localStorageEntries: (readonly [string, Array<{question
         defaultStats()
     );
 
-    stats.avgGuesses = Math.floor(stats.totalGuesses / stats.gamesPlayed);
-    stats.avgWordCount = Math.floor(stats.totalWordCount / stats.gamesPlayed);
+    stats.avgGuesses = stats.gamesPlayed === 0 ? 0 : Math.floor(stats.totalGuesses / stats.gamesPlayed);
+    stats.avgWordCount = stats.gamesPlayed === 0 ? 0 : Math.floor(stats.totalWordCount / stats.gamesPlayed);
 
     return stats;
 }

@@ -1,4 +1,4 @@
-import {component$, useSignal, useTask$} from "@builder.io/qwik";
+import {component$, useSignal, useVisibleTask$} from "@builder.io/qwik";
 import {server$, ServerQRL} from "@builder.io/qwik-city";
 import {timeUntilNextPuzzle, getResetDate} from "~/utilities/answer-builder";
 
@@ -24,7 +24,7 @@ export const NextPuzzleTimer = component$((props: {onTimerReset?: ServerQRL<() =
     const difference = useSignal(0);
     const resetDate = useSignal("");
 
-    useTask$(async ({cleanup}) => {
+    useVisibleTask$(async ({cleanup}) => {
         resetDate.value = await getResetDateFromServer();
         difference.value = await getNextDateString();
         counter.value = timeStringFromDifference(difference.value);
@@ -48,7 +48,7 @@ export const NextPuzzleTimer = component$((props: {onTimerReset?: ServerQRL<() =
             clearInterval(serverTimeFetchInterval);
             clearInterval(clientCounterInterval);
         });
-    });
+    }, {strategy: "document-ready"});
     return (
         <p class={'text-lg'}>Next Puzzle At {resetDate.value} ({counter.value})</p>
     )

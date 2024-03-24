@@ -9,7 +9,7 @@ export default component$(() => {
         <div class={''}>
             <h1 class={"text-3xl my-6"}>🔬 Stats</h1>
             <Link href={'/'}>
-                Back to the wizard 🧙🏾
+                Back to the Wizard 🧙🏾
             </Link>
             <StatsTable/>
             <NextPuzzleTimer/>
