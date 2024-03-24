@@ -19,8 +19,7 @@ const getResetDateFromServer = server$(() => {
 });
 
 const convertUTCDateToLocalDateString = (date: Date) => {
-    // assuming server time is in UTC
-    const localDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+    const localDate = new Date(date.toISOString());
 
     return localDate.toLocaleString("en-US", {timeZoneName: "short"})
 }
