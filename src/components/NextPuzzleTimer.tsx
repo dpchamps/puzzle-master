@@ -15,8 +15,15 @@ const getNextDateString = server$(() => {
 });
 
 const getResetDateFromServer = server$(() => {
-    return getResetDate().toLocaleString("en-US", {timeZoneName: "short"})
+    return getResetDate();
 });
+
+const convertUTCDateToLocalDateString = (date: Date) => {
+    // assuming server time is in UTC
+    const localDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+
+    return localDate.toLocaleString("en-US", {timeZoneName: "short"})
+}
 
 export const NextPuzzleTimer = component$((props: {onTimerReset?: ServerQRL<() => void>}) => {
     const counter = useSignal("");
@@ -25,7 +32,9 @@ export const NextPuzzleTimer = component$((props: {onTimerReset?: ServerQRL<() =
     const resetDate = useSignal("");
 
     useVisibleTask$(async ({cleanup}) => {
-        resetDate.value = await getResetDateFromServer();
+        const serverDate = await getResetDateFromServer();
+
+        resetDate.value = convertUTCDateToLocalDateString(serverDate);
         difference.value = await getNextDateString();
         counter.value = timeStringFromDifference(difference.value);
         epoch.value = performance.now();
