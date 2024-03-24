@@ -12,7 +12,7 @@ const getData = createDataSynchronizer(60 * 1000 * 5, process.env.QUESTIONS_PATH
 function daysBetween() {
   const rightNow = new Date();
   const diff = new DateDiff(rightNow, new Date(epochStart));
-  const daysBetween = Math.floor(diff.days()+1);
+  const daysBetween = Math.floor(diff.days())+1;
 
   return `${daysBetween}`.padStart(4, "0")
 }
