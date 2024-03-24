@@ -27,7 +27,7 @@ export default component$(() => {
       <body
         lang="en"
         class={
-          "bg-slate-50 dark:bg-slate-800 font-sans dark:text-slate-50 text-slate-800"
+          "bg-slate-50 dark:bg-slate-800 font-sans dark:text-slate-50 text-slate-800 container p-5 max-w-xl mx-auto leading-6 text-base"
         }
       >
         <RouterOutlet />

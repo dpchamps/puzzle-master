@@ -6,7 +6,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { fetchQuestionData } from "~/utilities/answer-builder";
+
 import { AnswerComponent } from "~/components/Answer";
 import {
   containsWinCondition,
@@ -23,6 +23,7 @@ import {
 } from "~/utilities/fetch-streaming-response.server";
 import { LoadingIndicator } from "~/components/LoadingIndicator";
 import {server$} from "@builder.io/qwik-city";
+import {Link} from "~/components/Link";
 
 export type DataStore = {
   questionData: null | QuestionData;
@@ -31,6 +32,11 @@ export type DataStore = {
   thinking: boolean;
   firstTimer: boolean;
 };
+
+const questionDataFromServer = server$(async () => {
+  const { fetchQuestionData } = await import("~/utilities/answer-builder");
+  return  fetchQuestionData();
+})
 
 export default component$(() => {
   const store = useStore<DataStore>({
@@ -42,7 +48,7 @@ export default component$(() => {
   });
 
   useTask$(async () => {
-    store.questionData = await fetchQuestionData();
+    store.questionData = await questionDataFromServer();
   });
 
   const onAnswer = $(async () => {
@@ -82,7 +88,7 @@ export default component$(() => {
   });
 
   const onTimerReset = server$(async () => {
-    store.questionData = await fetchQuestionData();
+    store.questionData = await questionDataFromServer();
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -97,8 +103,11 @@ export default component$(() => {
   });
 
   return (
-    <div class={"container p-5 max-w-xl mx-auto leading-6 text-base"}>
+    <div class={""}>
       <h1 class={"text-3xl my-6"}>🧙🏾 Welcome Traveler</h1>
+      <Link href={'/stats'}>
+         See Game Stats 🔬
+      </Link>
       <details class={"mb-4"} open={store.firstTimer}>
         <summary>Rules</summary>
         <p class={"my-3"}>

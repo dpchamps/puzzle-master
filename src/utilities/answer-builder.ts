@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert from 'assert'
 import { systemPrompt } from "~/utilities/system-prompt";
 import {createDataSynchronizer} from "~/utilities/data-fetcher";
 import DefaultDateDiff from "date-diff";
@@ -7,7 +7,7 @@ const epochStart = "3/14/2024";
 // @ts-ignore
 const DateDiff = DefaultDateDiff.default;
 
-const getData = createDataSynchronizer(60 * 1000 * 5, process.env.QUESTIONS_PATH || "");
+const getData = createDataSynchronizer(60 * 1000 * 5, process.env.QUESTIONS_PATH || "")
 
 function daysBetween() {
   const rightNow = new Date();
@@ -16,6 +16,15 @@ function daysBetween() {
 
   return `${daysBetween}`.padStart(4, "0")
 }
+
+export const getResetDate = () => {
+  const next = new Date();
+  next.setDate(next.getDate() + 1);
+  next.setHours(0, 0, 0, 0);
+
+  return next;
+}
+
 export const timeUntilNextPuzzle = () => {
   const next = new Date();
   next.setDate(next.getDate() + 1);

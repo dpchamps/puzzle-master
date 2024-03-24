@@ -14,6 +14,7 @@ export const LoadingIndicator = component$(
     const waitingIndicator = useSignal(".");
     const longTimeIndicator = useSignal(-1);
 
+      // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ cleanup }) => {
       const intervalId = setInterval(() => {
         if (waitingIndicator.value.length >= 3) {
