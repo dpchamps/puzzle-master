@@ -38,7 +38,7 @@ export const timeUntilNextPuzzle = () => {
 
 const getTodaysPuzzle = (data: Record<string, unknown>) => {
   const day = daysBetween();
-  const puzzle = data[`puzzle-${day}`] || data["puzzle-0001"];
+  const puzzle = data[`puzzle-${day}`] || Object.values(data)[0];
   assert(puzzle !== null && typeof puzzle === "object");
   assert("question" in puzzle && Array.isArray(puzzle.question));
   assert("answer" in puzzle && typeof puzzle.answer === "string");

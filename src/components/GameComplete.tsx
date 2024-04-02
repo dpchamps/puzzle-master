@@ -12,7 +12,7 @@ export const containsWinCondition = (responses: string[]) =>
 
 
 export const GameCompleteComponent = component$(
-  (props: { puzzleNumber: string; responses: string[], onTimerReset: ServerQRL<() => void> }) => {
+  (props: { puzzleNumber: string; responses: string[], onTimerReset: ServerQRL<() => void>, puzzleAnswer: string }) => {
     const copied = useSignal(false);
     const playerWon = containsWinCondition(props.responses);
     const emojiOutput = props.responses
@@ -34,6 +34,10 @@ export const GameCompleteComponent = component$(
             ? `Who are you so wise in the ways of science?!`
             : `Take some time to dwell upon your misgivings and come back tomorrow fresh.`}
         </p>
+        <details class={"my-3"}>
+            <summary>Click to Reveal Textbook Answer</summary>
+            <p>{props.puzzleAnswer}</p>
+        </details>
         <h3 class={"text-xl"}>Results:</h3>
         <div class={"text-center"}>
           <p class={"my-3"}>{emojiOutput}</p>
