@@ -159,6 +159,7 @@ export default component$(() => {
           responses={store.responses.map(({ answer }) => answer)}
           puzzleNumber={store.questionData?.day || ""}
           onTimerReset={onTimerReset}
+          puzzleAnswer={store.questionData?.puzzleAnswer || ""}
         />
       ) : (
         <AnswerComponent
